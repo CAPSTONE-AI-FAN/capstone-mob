@@ -45,5 +45,17 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- 네트워크 관련 설정 -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+    
+    <!-- 위치 권한 요청 메시지 -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>AI FAN 제어를 위해 위치 정보가 필요합니다</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>AI FAN 제어를 위해 위치 정보가 필요합니다</string>
 </dict>
 </plist>
