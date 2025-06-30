@@ -244,7 +244,7 @@ class _IpInputScreenState extends State<IpInputScreen> {
                   controller: _ipController,
                   decoration: InputDecoration(
                     labelText: 'MQTT 브로커 IP',
-                    hintText: '예: 192.168.0.8',
+                    hintText: '예: 192.168.104.223',
                     prefixIcon: Icon(Icons.lan),
                     border: OutlineInputBorder(),
                     errorText: _errorMessage.isNotEmpty ? _errorMessage : null,
@@ -278,12 +278,12 @@ class _IpInputScreenState extends State<IpInputScreen> {
                   onPressed: !_isSaving
                       ? () {
                           setState(() {
-                            _ipController.text = '192.168.0.8';
-                            _validateIp('192.168.0.8');
+                            _ipController.text = '192.168.104.223';
+                            _validateIp('192.168.104.223');
                           });
                         }
                       : null,
-                  child: Text('기본값 사용 (192.168.0.8)'),
+                  child: Text('기본값 사용 (192.168.104.223)'),
                 ),
               ],
             ),
@@ -299,178 +299,6 @@ class _IpInputScreenState extends State<IpInputScreen> {
     super.dispose();
   }
 }
-
-//// 시스템 상태 표시 패널
-//class SystemStatusPanel extends StatelessWidget {
-//  final String systemState;
-//  final double temperature;
-//  final String lastUpdate;
-//  final bool isConnected;
-
-//  SystemStatusPanel({
-//    required this.systemState,
-//    required this.temperature,
-//    required this.lastUpdate,
-//    required this.isConnected,
-//  });
-
-//  // 시스템 상태에 따른 색상 및 아이콘
-//  IconData _getStateIcon() {
-//    switch (systemState) {
-//      case 'measuring':
-//        return Icons.thermostat;
-//      case 'rotating':
-//        return Icons.rotate_right;
-//      case 'detected':
-//        return Icons.person;
-//      case 'idle':
-//        return Icons.pause_circle;
-//      case 'error':
-//        return Icons.error;
-//      default:
-//        return Icons.help;
-//    }
-//  }
-
-//  Color _getStateColor() {
-//    switch (systemState) {
-//      case 'measuring':
-//        return Colors.blue;
-//      case 'rotating':
-//        return Colors.green;
-//      case 'detected':
-//        return Colors.orange;
-//      case 'idle':
-//        return Colors.grey;
-//      case 'error':
-//        return Colors.red;
-//      default:
-//        return Colors.grey;
-//    }
-//  }
-
-//  String _getStateText() {
-//    switch (systemState) {
-//      case 'measuring':
-//        return '온도 측정 중';
-//      case 'rotating':
-//        return '팬 회전 중';
-//      case 'detected':
-//        return '사람 감지됨';
-//      case 'idle':
-//        return '대기 중';
-//      case 'error':
-//        return '오류 발생';
-//      case 'unknown':
-//        return isConnected ? '상태 수신 대기중' : '상태 미확인';
-//      default:
-//        return '상태 미확인';
-//    }
-//  }
-
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      padding: EdgeInsets.all(16),
-//      margin: EdgeInsets.all(8),
-//      decoration: BoxDecoration(
-//        color: Colors.grey[100],
-//        borderRadius: BorderRadius.circular(8),
-//        boxShadow: [
-//          BoxShadow(
-//            color: Colors.black.withOpacity(0.1),
-//            blurRadius: 4,
-//            offset: Offset(0, 2),
-//          ),
-//        ],
-//      ),
-//      child: Column(
-//        children: [
-//          Row(
-//            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//            children: [
-//              Row(
-//                children: [
-//                  Icon(
-//                    _getStateIcon(),
-//                    color: _getStateColor(),
-//                    size: 24,
-//                  ),
-//                  SizedBox(width: 8),
-//                  Text(
-//                    '시스템 상태: ${_getStateText()}',
-//                    style: TextStyle(
-//                      fontWeight: FontWeight.bold,
-//                      fontSize: 16,
-//                    ),
-//                  ),
-//                ],
-//              ),
-//              Text(
-//                '마지막 업데이트: ${lastUpdate != '-' && lastUpdate.isNotEmpty ? lastUpdate : '없음'}',
-//                style: TextStyle(
-//                  fontSize: 12,
-//                  color: Colors.grey[600],
-//                ),
-//              ),
-//            ],
-//          ),
-//          SizedBox(height: 12),
-//          Row(
-//            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//            children: [
-//              Row(
-//                children: [
-//                  Icon(
-//                    Icons.thermostat,
-//                    color: temperature > 37.5 ? Colors.red : Colors.blue,
-//                    size: 20,
-//                  ),
-//                  SizedBox(width: 4),
-//                  Text(
-//                    '현재 온도: ${temperature > 0 ? temperature.toStringAsFixed(1) : '--'}°C',
-//                    style: TextStyle(
-//                      fontSize: 14,
-//                    ),
-//                  ),
-//                ],
-//              ),
-//              Container(
-//                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-//                decoration: BoxDecoration(
-//                  color:
-//                      isConnected ? Colors.green.shade100 : Colors.red.shade100,
-//                  borderRadius: BorderRadius.circular(12),
-//                ),
-//                child: Row(
-//                  children: [
-//                    Icon(
-//                      isConnected ? Icons.wifi : Icons.wifi_off,
-//                      size: 14,
-//                      color: isConnected
-//                          ? Colors.green.shade800
-//                          : Colors.red.shade800,
-//                    ),
-//                    SizedBox(width: 4),
-//                    Text(
-//                      isConnected ? '연결됨' : '연결 끊김',
-//                      style: TextStyle(
-//                        fontSize: 12,
-//                        color: isConnected
-//                            ? Colors.green.shade800
-//                            : Colors.red.shade800,
-//                      ),
-//                    ),
-//                  ],
-//                ),
-//              ),
-//            ],
-//          ),
-//        ],
-//      ),
-//    );
-//  }
-//}
 
 // 컨트롤러 메인 화면
 class ControllerView extends StatefulWidget {
@@ -502,6 +330,9 @@ class _ControllerViewState extends State<ControllerView>
   double currentTemperature = 0.0;
   String lastUpdateTime = "";
 
+  // 선풍기 전원 상태
+  bool fanPowerOn = false;
+
   // 타이머 및 구독
   Timer? _statusUpdateTimer;
   Timer? _reconnectTimer;
@@ -526,6 +357,20 @@ class _ControllerViewState extends State<ControllerView>
 
   // ControllerView 클래스 내부에 추가할 변수
   bool _isMenuExpanded = false;
+
+  // 전역적인 명령 발행 제한 (추가)
+  bool _isCommandInProgress = false;
+  int _lastGlobalCommandTime = 0;
+
+  // 중복 방지 변수들 (추가)
+  String _lastFanRotationCommand = "";
+  int _lastFanRotationTime = 0;
+  String _lastMovementCommand = "";
+  int _lastMovementTime = 0;
+  
+  // 전용 플래그 변수들 (추가)
+  bool _isFanRotationInProgress = false;
+  bool _isMovementInProgress = false;
 
   @override
   void initState() {
@@ -558,16 +403,9 @@ class _ControllerViewState extends State<ControllerView>
 
   // MQTT 서비스 초기화
   Future<void> _initializeMqttService() async {
-    // 완전히 고유한 클라이언트 ID 생성
-    String clientId = 'mobile_client_${DateTime.now().millisecondsSinceEpoch}';
-
-    // 고유 ID 저장 (선택적)
-    await SharedPrefsService.saveClientId(clientId);
-
-    if (clientId.isEmpty) {
-      clientId = 'mobile_client_${DateTime.now().millisecondsSinceEpoch}';
-      await SharedPrefsService.saveClientId(clientId);
-    }
+    // 고유한 클라이언트 ID를 한 번만 생성하여 재사용
+    // 저장된 값이 있으면 그대로 사용, 없으면 새로 생성 후 저장
+    String clientId = await SharedPrefsService.getClientId();
 
     mqttService = MQTTService(
       broker: widget.brokerIp,
@@ -689,11 +527,45 @@ class _ControllerViewState extends State<ControllerView>
         systemState = data['state'] ?? 'unknown';
         _lastServerMessageTime = DateTime.now().millisecondsSinceEpoch;
 
-        // 서버로부터 상태 업데이트에 따라 자동 모드 상태 업데이트
-        if (systemState == 'measuring' || systemState == 'rotating') {
-          isAutoMode = true;
-        } else if (systemState == 'idle') {
-          isAutoMode = false;
+        // 서버로부터 자동 모드 상태 확인 응답 처리 (최적화된 빠른 처리)
+        if (data.containsKey('auto_mode_response')) {
+          final serverAutoMode = data['auto_mode'] ?? false;
+          final responseRequestId = data['request_id']?.toString();
+          
+          print('=== AUTO MODE RESPONSE RECEIVED (FAST) ===');
+          print('Server Auto Mode: $serverAutoMode');
+          print('Response Request ID: $responseRequestId');
+          print('Expected Request ID: $_lastAutoModeRequestId');
+          print('UI Auto Mode: $isAutoMode');
+          print('========================================');
+          
+          // 응답이 오면 즉시 토글 상태 해제 (빠른 피드백)
+          if (_isTogglingAutoMode) {
+            _isTogglingAutoMode = false;
+            print('✅ Auto mode toggle completed successfully');
+          }
+          
+          // 서버 상태와 UI 상태 동기화 (불일치 시에만 업데이트)
+          if (isAutoMode != serverAutoMode) {
+            isAutoMode = serverAutoMode;
+            print('🔄 Auto mode synced with server: $serverAutoMode');
+          }
+          
+          _lastAutoModeRequestId = null; // 요청 ID 초기화
+        } 
+        // 일반적인 상태 업데이트에 따른 자동 모드 상태 동기화 (토글 중이 아닐 때만)
+        else if (!_isTogglingAutoMode) {
+          if (systemState == 'measuring' || systemState == 'rotating') {
+            if (!isAutoMode) {
+              isAutoMode = true;
+              print('Auto mode activated by system state: $systemState');
+            }
+          } else if (systemState == 'idle') {
+            if (isAutoMode) {
+              isAutoMode = false;
+              print('Auto mode deactivated by system state: $systemState');
+            }
+          }
         }
 
         lastUpdateTime = _formatTimestamp(data['timestamp']);
@@ -748,6 +620,23 @@ class _ControllerViewState extends State<ControllerView>
           }
         });
       }
+    });
+
+    // 선풍기 상태 토픽 구독
+    mqttService.getTopicStream('device/fan/status').listen((data) {
+      if (_isDisposed) return;
+      
+      _lastServerMessageTime = DateTime.now().millisecondsSinceEpoch;
+      
+      setState(() {
+        fanPowerOn = data['power_on'] ?? false;
+        
+        // 메시지 수신 시 연결 상태 업데이트
+        if (!isConnected && !isEffectivelyConnected) {
+          isEffectivelyConnected = true;
+          _updateConnectionStatusUI();
+        }
+      });
     });
   }
 
@@ -929,6 +818,25 @@ class _ControllerViewState extends State<ControllerView>
     // 타이머 해제
     _statusUpdateTimer?.cancel();
     _reconnectTimer?.cancel();
+    _autoModeDebounceTimer?.cancel();
+
+    // 자동 모드 토글 상태 정리
+    _isTogglingAutoMode = false;
+    _lastAutoModeRequestId = null;
+
+    // 중복 방지 변수 초기화
+    _lastFanRotationCommand = "";
+    _lastFanRotationTime = 0;
+    _lastMovementCommand = "";
+    _lastMovementTime = 0;
+    
+    // 전용 플래그 변수 초기화
+    _isFanRotationInProgress = false;
+    _isMovementInProgress = false;
+    
+    // 전역적인 명령 발행 제한 변수 초기화
+    _isCommandInProgress = false;
+    _lastGlobalCommandTime = 0;
 
     // 구독 해제
     _connectionSubscription?.cancel();
@@ -943,25 +851,36 @@ class _ControllerViewState extends State<ControllerView>
     super.dispose();
   }
 
-  // 조이스틱 이동 처리
-  void onJoystickMove(Offset offset) {
+  // 조이스틱 이동 처리 (선풍기 회전용) - 중복 방지 로직 포함
+  void onJoystickMove(String direction) {
     if (!(isConnected || isEffectivelyConnected) || isAutoMode) return;
 
-    final newAngle = offset.direction * 180 / 3.1416;
-    if ((newAngle - rotationAngle).abs() > 2.0) {
-      // 변화량이 충분할 때만 업데이트
-      setState(() {
-        rotationAngle = newAngle;
-      });
-
-      mqttService.publishMessage('control/rotation', {
-        "device_id": mqttService.clientIdentifier,
-        "angle": rotationAngle.toStringAsFixed(1)
-      });
+    // 방향에 따라 모터 속도 값 설정 (절대값)
+    int motorSpeed = 0;
+    String motorDirection = "center";
+    
+    switch (direction) {
+      case "left":
+        motorDirection = "left";
+        motorSpeed = 50; // 절대값
+        break;
+      case "right":
+        motorDirection = "right";
+        motorSpeed = 50; // 절대값
+        break;
+      case "center":
+      case "stop":
+      default:
+        motorDirection = "center";
+        motorSpeed = 0;
+        break;
     }
+
+    // 선풍기 회전 제어 명령 발행 (중복 방지 적용)
+    _publishFanRotation(motorDirection, motorSpeed, DateTime.now().millisecondsSinceEpoch);
   }
 
-  // 방향 버튼 처리
+  // 방향 버튼 처리 (선풍기 회전 + 이동 통합) - 개선된 버전
   void onDirectionPressed(String direction) {
     if (!(isConnected || isEffectivelyConnected) || isAutoMode) return;
 
@@ -969,22 +888,179 @@ class _ControllerViewState extends State<ControllerView>
       currentDirection = direction;
     });
 
-    mqttService.publishMessage('control/direction',
-        {"device_id": mqttService.clientIdentifier, "direction": direction});
+    // 방향에 따라 적절한 토픽만 발행하도록 개선
+    _handleDirectionCommand(direction);
   }
 
-  // 자동 모드 토글
+  // 방향 명령 처리 로직 분리 및 최적화
+  void _handleDirectionCommand(String direction) {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    
+    switch (direction) {
+      case "left":
+      case "right":
+        // 좌우 방향: 선풍기 회전 + 이동 모두 적용
+        _publishFanRotation(direction, 45, timestamp);
+        _publishMovementCommand(_mapDirectionToMovement(direction), timestamp);
+        break;
+        
+      case "up":
+      case "down":
+        // 상하 방향: 이동만 적용 (선풍기 회전은 정지)
+        _publishFanRotation("center", 0, timestamp);
+        _publishMovementCommand(_mapDirectionToMovement(direction), timestamp);
+        break;
+        
+      case "stop":
+      case "center":
+      default:
+        // 정지: 모두 정지
+        _publishFanRotation("center", 0, timestamp);
+        _publishMovementCommand("stop", timestamp);
+        break;
+    }
+  }
+
+   void _publishFanRotation(String direction, int speed, int timestamp) {
+    mqttService.publishMessage('control/fan/rotation', {
+      "device_id": mqttService.clientIdentifier,
+      "action": "set_direction",
+      "direction": direction,
+      "speed": speed,
+      "timestamp": timestamp
+    });
+
+    print('Fan rotation command sent - Direction: $direction, Speed: $speed');
+  }
+
+    void _publishMovementCommand(String direction, int timestamp) {
+    mqttService.publishMessage('control/movement', {
+      "device_id": mqttService.clientIdentifier,
+      "action": "move",
+      "direction": direction,
+      "timestamp": timestamp
+    });
+
+    print('Movement command sent - Direction: $direction');
+  }
+
+  // 방향을 이동 명령으로 매핑하는 헬퍼 함수
+  String _mapDirectionToMovement(String direction) {
+    switch (direction) {
+      case "up":
+        return "forward";
+      case "down":
+        return "backward";  // stop에서 backward로 수정
+      case "left":
+        return "left";
+      case "right":
+        return "right";
+      case "center":
+      case "stop":
+      default:
+        return "stop";
+    }
+  }
+
+  // 자동 모드 토글 상태 관리
+  bool _isTogglingAutoMode = false;
+  Timer? _autoModeDebounceTimer;
+  String? _lastAutoModeRequestId;
+
+  // 자동 모드 토글 (최적화된 빠른 응답)
   void toggleAutoMode() {
     if (!(isConnected || isEffectivelyConnected)) return;
+    
+    // 이미 토글 중이면 무시
+    if (_isTogglingAutoMode) {
+      print('Auto mode toggle already in progress, ignoring duplicate request');
+      return;
+    }
 
+    // 디바운싱 시간을 대폭 단축 (200ms)
+    _autoModeDebounceTimer?.cancel();
+    _autoModeDebounceTimer = Timer(Duration(milliseconds: 200), () {
+      _performAutoModeToggle();
+    });
+  }
+
+  void _performAutoModeToggle() {
+    // 다시 한 번 토글 상태 확인
+    if (_isTogglingAutoMode) {
+      print('Auto mode toggle still in progress, skipping');
+      return;
+    }
+    
     final newAutoMode = !isAutoMode;
+    final requestId = DateTime.now().millisecondsSinceEpoch.toString();
+    
+    print('=== AUTO MODE TOGGLE REQUEST (OPTIMIZED) ===');
+    print('Target Mode: ${newAutoMode ? "AUTO" : "MANUAL"}');
+    print('Request ID: $requestId');
+    print('Current State: ${isAutoMode ? "AUTO" : "MANUAL"}');
+    print('===========================================');
+
+    // UI 즉시 업데이트 (낙관적 업데이트)
     setState(() {
+      _isTogglingAutoMode = true;
       isAutoMode = newAutoMode;
     });
 
-    String mode = isAutoMode ? 'enable_autonomous' : 'disable_autonomous';
-    mqttService.publishMessage('control/auto_mode',
-        {"device_id": mqttService.clientIdentifier, "mode": mode});
+    _lastAutoModeRequestId = requestId;
+
+    // 메시지 발행 (비동기로 처리하여 UI 블로킹 방지)
+    Future.microtask(() async {
+      bool messageSent = mqttService.publishMessage('control/auto_mode', {
+        "device_id": mqttService.clientIdentifier,
+        "auto_mode": newAutoMode,
+        "action": newAutoMode ? "enable_autonomous_mode" : "disable_autonomous_mode",
+        "request_id": requestId,
+        "timestamp": DateTime.now().millisecondsSinceEpoch
+      });
+
+      if (!messageSent) {
+        print('Failed to send auto mode message - reverting UI');
+        // 메시지 전송 실패 시 UI 되돌리기
+        if (mounted && _lastAutoModeRequestId == requestId) {
+          setState(() {
+            isAutoMode = !newAutoMode; // 원래 상태로 되돌리기
+            _isTogglingAutoMode = false;
+          });
+        }
+        return;
+      }
+      
+      print('✅ Auto mode request sent successfully');
+    });
+
+    // 타임아웃을 3초로 단축 (빠른 피드백)
+    Timer(Duration(seconds: 3), () {
+      if (_isTogglingAutoMode && _lastAutoModeRequestId == requestId) {
+        setState(() {
+          _isTogglingAutoMode = false;
+        });
+        print('Auto mode toggle timeout (3s) - assuming success for request: $requestId');
+      }
+    });
+  }
+
+  // 선풍기 전원 토글
+  void toggleFanPower() {
+    if (!(isConnected || isEffectivelyConnected)) return;
+
+    final newPowerState = !fanPowerOn;
+    setState(() {
+      fanPowerOn = newPowerState;
+    });
+
+    mqttService.publishMessage('control/fan/power', {
+      "device_id": mqttService.clientIdentifier,
+      "action": newPowerState ? "power_on" : "power_off",
+      "power_state": newPowerState,
+      "timestamp": DateTime.now().millisecondsSinceEpoch
+    });
+
+    print('Fan power command sent: ${newPowerState ? "ON" : "OFF"}');
   }
 
   // IP 초기화 및 IP 입력 화면으로 돌아가기
@@ -1149,12 +1225,20 @@ class _ControllerViewState extends State<ControllerView>
                                             rotationAngle: rotationAngle,
                                             onMove: onJoystickMove,
                                           ),
-                                          SizedBox(height: 30),
-                                          AutoModeButton(
+                                          SizedBox(height: 20),
+                                                                    AutoModeButton(
+                            enabled: (isConnected ||
+                                isEffectivelyConnected) && !_isTogglingAutoMode,
+                            isAutoMode: isAutoMode,
+                            isToggling: _isTogglingAutoMode,
+                            onPressed: toggleAutoMode,
+                          ),
+                                          SizedBox(height: 10),
+                                          FanPowerButton(
                                             enabled: isConnected ||
                                                 isEffectivelyConnected,
-                                            isAutoMode: isAutoMode,
-                                            onPressed: toggleAutoMode,
+                                            fanPowerOn: fanPowerOn,
+                                            onPressed: toggleFanPower,
                                           ),
                                         ],
                                       ),
@@ -1189,9 +1273,17 @@ class _ControllerViewState extends State<ControllerView>
                                     SizedBox(height: 20),
                                     AutoModeButton(
                                       enabled:
-                                          isConnected || isEffectivelyConnected,
+                                          (isConnected || isEffectivelyConnected) && !_isTogglingAutoMode,
                                       isAutoMode: isAutoMode,
+                                      isToggling: _isTogglingAutoMode,
                                       onPressed: toggleAutoMode,
+                                    ),
+                                    SizedBox(height: 10),
+                                    FanPowerButton(
+                                      enabled:
+                                          isConnected || isEffectivelyConnected,
+                                      fanPowerOn: fanPowerOn,
+                                      onPressed: toggleFanPower,
                                     ),
                                   ],
                                 );
@@ -1236,6 +1328,7 @@ class _ControllerViewState extends State<ControllerView>
                           onResetIp: _resetIpSettings,
                           isStableIndirect: isStableIndirectConnection,
                           connectionStatus: connectionStatus,
+                          fanPowerOn: fanPowerOn,
                           onClose: () {
                             // 새 콜백 속성 추가
                             setState(() {
@@ -1356,6 +1449,7 @@ class FoldableMenuContent extends StatelessWidget {
   final bool isConnected;
   final bool isStableIndirect;
   final String connectionStatus;
+  final bool fanPowerOn;
   final VoidCallback onResetIp;
   final VoidCallback onClose; // 새로운 콜백 속성 추가
 
@@ -1367,6 +1461,7 @@ class FoldableMenuContent extends StatelessWidget {
     required this.isConnected,
     required this.isStableIndirect,
     required this.connectionStatus,
+    required this.fanPowerOn,
     required this.onResetIp,
     required this.onClose,
   });
@@ -1503,6 +1598,17 @@ class FoldableMenuContent extends StatelessWidget {
                       subtitle: Text(_getStateText()),
                     ),
 
+                    // 선풍기 전원 상태
+                    ListTile(
+                      dense: true,
+                      leading: Icon(
+                        fanPowerOn ? Icons.power : Icons.power_off,
+                        color: fanPowerOn ? Colors.green.shade700 : Colors.red.shade700,
+                      ),
+                      title: Text('선풍기 전원'),
+                      subtitle: Text(fanPowerOn ? 'ON' : 'OFF'),
+                    ),
+
                     // 현재 온도
                     ListTile(
                       dense: true,
@@ -1528,6 +1634,14 @@ class FoldableMenuContent extends StatelessWidget {
                             ? lastUpdate
                             : '없음',
                       ),
+                    ),
+
+                    // 제어 기능 설명 추가
+                    ListTile(
+                      dense: true,
+                      leading: Icon(Icons.info, color: Colors.orange.shade700),
+                      title: Text('제어 기능'),
+                      subtitle: Text('방향 버튼으로 선풍기 회전 + 이동 제어'),
                     ),
 
                     // 하단 버튼들
@@ -1580,6 +1694,8 @@ class FoldableMenuContent extends StatelessWidget {
                                       Text('개발: AI FAN 팀'),
                                       SizedBox(height: 8),
                                       Text('© 2024 AI FAN 프로젝트'),
+                                      SizedBox(height: 8),
+                                      Text('* 방향 버튼으로 회전 + 이동 제어'),
                                     ],
                                   ),
                                   actions: [
@@ -1607,14 +1723,90 @@ class FoldableMenuContent extends StatelessWidget {
   }
 }
 
-// AutoModeButton 컴포넌트
+// AutoModeButton 컴포넌트 (최적화된 빠른 반응)
 class AutoModeButton extends StatelessWidget {
   final bool isAutoMode;
   final bool enabled;
+  final bool isToggling;
   final VoidCallback onPressed;
 
   AutoModeButton({
     required this.isAutoMode,
+    required this.onPressed,
+    this.enabled = true,
+    this.isToggling = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 150), // 빠른 애니메이션
+      child: ElevatedButton.icon(
+        onPressed: enabled && !isToggling ? onPressed : null,
+        icon: isToggling 
+            ? SizedBox(
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            : Icon(
+                isAutoMode ? Icons.auto_fix_high : Icons.gamepad,
+                size: 22,
+              ),
+        label: Text(
+          isToggling 
+              ? '처리 중...' // 텍스트 단축
+              : (isAutoMode ? '수동 모드로 전환' : '자동 모드로 전환'),
+          style: TextStyle(
+            fontSize: 15, // 약간 축소
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.3,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+          backgroundColor: _getButtonColor(),
+          foregroundColor: Colors.white,
+          elevation: isToggling ? 1 : 4, // 토글 시 더 낮은 elevation
+          shadowColor: Colors.black.withOpacity(0.2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          animationDuration: Duration(milliseconds: 150), // 빠른 애니메이션
+        ),
+      ),
+    );
+  }
+
+  Color _getButtonColor() {
+    if (!enabled) {
+      return Colors.grey.shade400;
+    }
+    
+    if (isToggling) {
+      // 토글 중일 때는 약간 어두운 색상
+      return isAutoMode ? Colors.orange.shade700 : Colors.blue.shade700;
+    }
+    
+    if (isAutoMode) {
+      return Colors.orange.shade600; // 자동 모드 - 주황색
+    } else {
+      return Colors.blue.shade600; // 수동 모드 - 파란색
+    }
+  }
+}
+
+// FanPowerButton 컴포넌트
+class FanPowerButton extends StatelessWidget {
+  final bool fanPowerOn;
+  final bool enabled;
+  final VoidCallback onPressed;
+
+  FanPowerButton({
+    required this.fanPowerOn,
     required this.onPressed,
     this.enabled = true,
   });
@@ -1623,13 +1815,13 @@ class AutoModeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: enabled ? onPressed : null,
-      icon: Icon(isAutoMode ? Icons.auto_fix_high : Icons.gamepad),
-      label: Text(isAutoMode ? '수동 모드로 전환' : '자동 모드로 전환'),
+      icon: Icon(fanPowerOn ? Icons.power_off : Icons.power),
+      label: Text(fanPowerOn ? '선풍기 끄기' : '선풍기 켜기'),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         backgroundColor: enabled
-            ? (isAutoMode ? Colors.orange.shade700 : Colors.blue.shade700)
+            ? (fanPowerOn ? Colors.red.shade700 : Colors.green.shade700)
             : Colors.grey,
         foregroundColor: Colors.white,
         elevation: 4,
@@ -1641,7 +1833,7 @@ class AutoModeButton extends StatelessWidget {
   }
 }
 
-// DirectionalController 컴포넌트
+// DirectionalController 컴포넌트 - 중복 발행 완전 방지
 class DirectionalController extends StatefulWidget {
   final Function(String) onDirectionPressed;
   final bool enabled;
@@ -1656,34 +1848,117 @@ class DirectionalController extends StatefulWidget {
 }
 
 class _DirectionalControllerState extends State<DirectionalController> {
-  Timer? _holdTimer;
-  String? _activeDirection;
+  // 각 방향별 개별 상태 관리
+  Map<String, bool> _directionPressed = {
+    'up': false,
+    'down': false,
+    'left': false,
+    'right': false,
+  };
+  
+  // 각 방향별 메시지 발행 상태 (이미 발행했는지 추적)
+  Map<String, bool> _messageSent = {
+    'up': false,
+    'down': false,
+    'left': false,
+    'right': false,
+  };
 
-  void onDirectionPressed(String direction) {
+  String? _activeDirection;
+  bool _stopMessageSent = false; // stop 메시지 발행 여부
+
+  // 방향을 이동 명령으로 매핑하는 헬퍼 함수
+  String _mapDirectionToMovement(String direction) {
+    switch (direction) {
+      case "up":
+        return "forward";
+      case "down":
+        return "backward";
+      case "left":
+        return "left";
+      case "right":
+        return "right";
+      default:
+        return "stop";
+    }
+  }
+
+  void _onDirectionTapDown(String direction) {
     if (!widget.enabled) return;
-    print('DirectionalController: Direction pressed: $direction');
+    
+    // 이미 해당 방향이 눌려있고 메시지가 발행되었으면 무시
+    if (_directionPressed[direction] == true && _messageSent[direction] == true) {
+      print('Direction $direction already pressed and message sent, ignoring');
+      return;
+    }
+    
+    // 다른 방향이 활성화되어 있으면 먼저 해제
+    if (_activeDirection != null && _activeDirection != direction) {
+      _releaseDirection(_activeDirection!);
+    }
+    
     setState(() {
       _activeDirection = direction;
+      _directionPressed[direction] = true;
+      _messageSent[direction] = true; // 메시지 발행 상태로 변경
+      _stopMessageSent = false; // stop 메시지 상태 초기화
     });
+    
+    // 한 번만 메시지 발행
     widget.onDirectionPressed(direction);
+    print('✅ Direction message sent ONCE: $direction -> ${_mapDirectionToMovement(direction)}');
   }
 
-  void _startContinuousPress(String direction) {
+  void _onDirectionTapUpOrCancel(String direction) {
     if (!widget.enabled) return;
-    onDirectionPressed(direction);
-    _holdTimer = Timer.periodic(Duration(milliseconds: 100), (_) {
-      onDirectionPressed(direction);
-    });
+    
+    // 해당 방향이 눌려있지 않으면 무시
+    if (_directionPressed[direction] != true) {
+      return;
+    }
+    
+    // 현재 활성화된 방향이 아니면 무시
+    if (_activeDirection != direction) {
+      return;
+    }
+    
+    _releaseDirection(direction);
   }
 
-  void _stopContinuousPress() {
-    _holdTimer?.cancel();
-    _holdTimer = null;
+  void _releaseDirection(String direction) {
+    // 이미 stop 메시지를 보냈으면 무시
+    if (_stopMessageSent) {
+      print('Stop message already sent, ignoring release for: $direction');
+      return;
+    }
+    
     setState(() {
       _activeDirection = null;
+      _directionPressed[direction] = false;
+      _messageSent[direction] = false; // 메시지 발행 상태 초기화
+      _stopMessageSent = true; // stop 메시지 발행 상태로 변경
     });
-    if (widget.enabled) {
-      widget.onDirectionPressed("center");
+    
+    // stop 메시지 한 번만 발행
+    widget.onDirectionPressed('stop');
+    print('✅ Stop message sent ONCE for direction: $direction');
+  }
+
+  // 모든 방향 해제 (안전장치)
+  void _releaseAllDirections() {
+    if (_activeDirection != null && !_stopMessageSent) {
+      final currentDirection = _activeDirection!;
+      setState(() {
+        _activeDirection = null;
+        _directionPressed.forEach((key, value) {
+          _directionPressed[key] = false;
+          _messageSent[key] = false;
+        });
+        _stopMessageSent = true;
+      });
+      
+      widget.onDirectionPressed('stop');
+      print('✅ Emergency stop message sent for: $currentDirection');
     }
   }
 
@@ -1724,18 +1999,21 @@ class _DirectionalControllerState extends State<DirectionalController> {
               ),
             ),
           ),
-
+          
+          // 위쪽 버튼 (전진)
           Align(
             alignment: Alignment.topCenter,
             child: GestureDetector(
-              onTapDown: (_) => _startContinuousPress("up"),
-              onTapUp: (_) => _stopContinuousPress(),
-              onTapCancel: _stopContinuousPress,
+              onTapDown: (_) => _onDirectionTapDown("up"),
+              onTapUp: (_) => _onDirectionTapUpOrCancel("up"),
+              onTapCancel: () => _onDirectionTapUpOrCancel("up"),
+              // 패닝이나 드래그 시에도 안전하게 해제
+              onPanEnd: (_) => _onDirectionTapUpOrCancel("up"),
               child: Container(
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: _activeDirection == "up"
+                  color: _directionPressed["up"] == true
                       ? (widget.enabled
                           ? Colors.blue.shade600
                           : Colors.grey.shade400)
@@ -1746,7 +2024,7 @@ class _DirectionalControllerState extends State<DirectionalController> {
                   Icons.arrow_upward,
                   size: 40,
                   color: widget.enabled
-                      ? (_activeDirection == "up"
+                      ? (_directionPressed["up"] == true
                           ? Colors.white
                           : Colors.blue.shade800)
                       : Colors.grey,
@@ -1754,18 +2032,20 @@ class _DirectionalControllerState extends State<DirectionalController> {
               ),
             ),
           ),
-
+          
+          // 아래쪽 버튼 (후진)
           Align(
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
-              onTapDown: (_) => _startContinuousPress("down"),
-              onTapUp: (_) => _stopContinuousPress(),
-              onTapCancel: _stopContinuousPress,
+              onTapDown: (_) => _onDirectionTapDown("down"),
+              onTapUp: (_) => _onDirectionTapUpOrCancel("down"),
+              onTapCancel: () => _onDirectionTapUpOrCancel("down"),
+              onPanEnd: (_) => _onDirectionTapUpOrCancel("down"),
               child: Container(
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: _activeDirection == "down"
+                  color: _directionPressed["down"] == true
                       ? (widget.enabled
                           ? Colors.blue.shade600
                           : Colors.grey.shade400)
@@ -1776,7 +2056,7 @@ class _DirectionalControllerState extends State<DirectionalController> {
                   Icons.arrow_downward,
                   size: 40,
                   color: widget.enabled
-                      ? (_activeDirection == "down"
+                      ? (_directionPressed["down"] == true
                           ? Colors.white
                           : Colors.blue.shade800)
                       : Colors.grey,
@@ -1784,18 +2064,20 @@ class _DirectionalControllerState extends State<DirectionalController> {
               ),
             ),
           ),
-
+          
+          // 왼쪽 버튼
           Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
-              onTapDown: (_) => _startContinuousPress("left"),
-              onTapUp: (_) => _stopContinuousPress(),
-              onTapCancel: _stopContinuousPress,
+              onTapDown: (_) => _onDirectionTapDown("left"),
+              onTapUp: (_) => _onDirectionTapUpOrCancel("left"),
+              onTapCancel: () => _onDirectionTapUpOrCancel("left"),
+              onPanEnd: (_) => _onDirectionTapUpOrCancel("left"),
               child: Container(
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: _activeDirection == "left"
+                  color: _directionPressed["left"] == true
                       ? (widget.enabled
                           ? Colors.blue.shade600
                           : Colors.grey.shade400)
@@ -1806,7 +2088,7 @@ class _DirectionalControllerState extends State<DirectionalController> {
                   Icons.arrow_back,
                   size: 40,
                   color: widget.enabled
-                      ? (_activeDirection == "left"
+                      ? (_directionPressed["left"] == true
                           ? Colors.white
                           : Colors.blue.shade800)
                       : Colors.grey,
@@ -1814,18 +2096,20 @@ class _DirectionalControllerState extends State<DirectionalController> {
               ),
             ),
           ),
-
+          
+          // 오른쪽 버튼
           Align(
             alignment: Alignment.centerRight,
             child: GestureDetector(
-              onTapDown: (_) => _startContinuousPress("right"),
-              onTapUp: (_) => _stopContinuousPress(),
-              onTapCancel: _stopContinuousPress,
+              onTapDown: (_) => _onDirectionTapDown("right"),
+              onTapUp: (_) => _onDirectionTapUpOrCancel("right"),
+              onTapCancel: () => _onDirectionTapUpOrCancel("right"),
+              onPanEnd: (_) => _onDirectionTapUpOrCancel("right"),
               child: Container(
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: _activeDirection == "right"
+                  color: _directionPressed["right"] == true
                       ? (widget.enabled
                           ? Colors.blue.shade600
                           : Colors.grey.shade400)
@@ -1836,7 +2120,7 @@ class _DirectionalControllerState extends State<DirectionalController> {
                   Icons.arrow_forward,
                   size: 40,
                   color: widget.enabled
-                      ? (_activeDirection == "right"
+                      ? (_directionPressed["right"] == true
                           ? Colors.white
                           : Colors.blue.shade800)
                       : Colors.grey,
@@ -1851,15 +2135,16 @@ class _DirectionalControllerState extends State<DirectionalController> {
 
   @override
   void dispose() {
-    _stopContinuousPress();
+    // 위젯이 파괴될 때 안전하게 모든 방향 해제
+    _releaseAllDirections();
     super.dispose();
   }
 }
 
-// RotationJoystick 컴포넌트
+// RotationJoystick 컴포넌트 - 간소화된 중복 방지
 class RotationJoystick extends StatefulWidget {
   final double rotationAngle;
-  final Function(Offset) onMove;
+  final Function(String) onMove;
   final bool enabled;
 
   RotationJoystick({
@@ -1873,26 +2158,77 @@ class RotationJoystick extends StatefulWidget {
 }
 
 class _RotationJoystickState extends State<RotationJoystick> {
-  double _handlePosition = 0.5;
-  String _lastDirection = "center";
-  bool _isDragging = false;
+  // 간단한 상태 관리
+  Map<String, bool> _rotationPressed = {
+    'left': false,
+    'right': false,
+  };
+  
+  // 각 방향별 메시지 발행 상태
+  Map<String, bool> _messageSent = {
+    'left': false,
+    'right': false,
+  };
+  
+  String? _activeDirection;
+  bool _stopMessageSent = false;
 
-  @override
-  void initState() {
-    super.initState();
+  void _startRotation(String direction) {
+    if (!widget.enabled) return;
+    
+    // 이미 해당 방향이 눌려있고 메시지가 발행되었으면 무시
+    if (_rotationPressed[direction] == true && _messageSent[direction] == true) {
+      print('Rotation $direction already active and message sent, ignoring');
+      return;
+    }
+    
+    // 다른 방향이 활성화되어 있으면 먼저 해제
+    if (_activeDirection != null && _activeDirection != direction) {
+      _stopRotation();
+    }
+    
+    setState(() {
+      _activeDirection = direction;
+      _rotationPressed[direction] = true;
+      _messageSent[direction] = true;
+      _stopMessageSent = false;
+      
+      // 다른 방향은 false로 설정
+      _rotationPressed.forEach((key, value) {
+        if (key != direction) {
+          _rotationPressed[key] = false;
+          _messageSent[key] = false;
+        }
+      });
+    });
+
+    // 한 번만 명령 전송
+    widget.onMove(direction);
+    print('✅ Rotation message sent ONCE: $direction');
   }
 
-  void _sendDirectionMessage(String direction) {
+  void _stopRotation() {
     if (!widget.enabled) return;
-
-    if (direction != _lastDirection) {
-      _lastDirection = direction;
-      print('RotationJoystick: direction = $direction');
-
-      widget.onMove(Offset(
-          direction == "left" ? -1.0 : (direction == "right" ? 1.0 : 0.0),
-          0.0));
+    
+    // 이미 stop 메시지를 보냈거나 활성화된 방향이 없으면 무시
+    if (_stopMessageSent || _activeDirection == null) {
+      return;
     }
+    
+    final currentDirection = _activeDirection;
+    
+    setState(() {
+      _activeDirection = null;
+      _stopMessageSent = true;
+      _rotationPressed.forEach((key, value) {
+        _rotationPressed[key] = false;
+        _messageSent[key] = false;
+      });
+    });
+
+    // 정지 명령 한 번만 전송
+    widget.onMove("center");
+    print('✅ Rotation stop message sent ONCE for: $currentDirection');
   }
 
   @override
@@ -1901,11 +2237,7 @@ class _RotationJoystickState extends State<RotationJoystick> {
       builder: (context, constraints) {
         final containerWidth = 300.0;
         final containerHeight = 60.0;
-        final handleSize = 50.0;
-
-        final handleX = _isDragging
-            ? (_handlePosition * (containerWidth - handleSize))
-            : ((containerWidth - handleSize) / 2);
+        final buttonSize = 50.0;
 
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -1936,95 +2268,38 @@ class _RotationJoystickState extends State<RotationJoystick> {
                 ],
               ),
               child: Stack(
-                clipBehavior: Clip.none,
                 children: [
-                  // 왼쪽 아이콘
+                  // 왼쪽 회전 버튼
                   Positioned(
-                    left: 20,
-                    top: (containerHeight - 24) / 2,
-                    child: Icon(
-                      Icons.rotate_left,
-                      size: 24,
-                      color: widget.enabled
-                          ? Colors.blue.shade700
-                          : Colors.grey.shade500,
-                    ),
-                  ),
-
-                  // 오른쪽 아이콘
-                  Positioned(
-                    right: 20,
-                    top: (containerHeight - 24) / 2,
-                    child: Icon(
-                      Icons.rotate_right,
-                      size: 24,
-                      color: widget.enabled
-                          ? Colors.blue.shade700
-                          : Colors.grey.shade500,
-                    ),
-                  ),
-
-                  // 드래그 가능한 핸들
-                  Positioned(
-                    left: handleX,
-                    top: (containerHeight - handleSize) / 2,
+                    left: 5,
+                    top: (containerHeight - buttonSize) / 2,
                     child: GestureDetector(
-                      onHorizontalDragStart: widget.enabled
-                          ? (details) {
-                              setState(() {
-                                _isDragging = true;
-                              });
-                            }
-                          : null,
-                      onHorizontalDragUpdate: widget.enabled
-                          ? (details) {
-                              RenderBox renderBox =
-                                  context.findRenderObject() as RenderBox;
-                              double localDx = renderBox
-                                  .globalToLocal(details.globalPosition)
-                                  .dx;
-                              double newPosition =
-                                  (localDx / containerWidth).clamp(0.0, 1.0);
-
-                              setState(() {
-                                _handlePosition = newPosition;
-                              });
-
-                              String direction;
-                              if (newPosition < 0.4) {
-                                direction = "left";
-                              } else if (newPosition > 0.6) {
-                                direction = "right";
-                              } else {
-                                direction = "center";
-                              }
-
-                              _sendDirectionMessage(direction);
-                            }
-                          : null,
-                      onHorizontalDragEnd: widget.enabled
-                          ? (details) {
-                              setState(() {
-                                _isDragging = false;
-                                _handlePosition = 0.5;
-                              });
-
-                              _sendDirectionMessage("center");
-                            }
-                          : null,
+                      onTapDown: (_) => _startRotation("left"),
+                      onTapUp: (_) => _stopRotation(),
+                      onTapCancel: _stopRotation,
+                      onPanEnd: (_) => _stopRotation(),
                       child: Container(
-                        width: handleSize,
-                        height: handleSize,
+                        width: buttonSize,
+                        height: buttonSize,
                         decoration: BoxDecoration(
                           gradient: widget.enabled
-                              ? LinearGradient(
-                                  colors: [
-                                    Colors.blue.shade400,
-                                    Colors.blue.shade600
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                )
+                              ? (_rotationPressed["left"] == true
+                                  ? LinearGradient(
+                                      colors: [
+                                        Colors.blue.shade600,
+                                        Colors.blue.shade800
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    )
+                                  : LinearGradient(
+                                      colors: [
+                                        Colors.blue.shade400,
+                                        Colors.blue.shade600
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ))
                               : LinearGradient(
                                   colors: [
                                     Colors.grey.shade400,
@@ -2038,20 +2313,124 @@ class _RotationJoystickState extends State<RotationJoystick> {
                               ? [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.2),
-                                    blurRadius: 5,
-                                    spreadRadius: 1,
-                                    offset: Offset(0, 2),
+                                    blurRadius: _rotationPressed["left"] == true ? 2 : 5,
+                                    spreadRadius: _rotationPressed["left"] == true ? 0 : 1,
+                                    offset: Offset(0, _rotationPressed["left"] == true ? 1 : 2),
                                   ),
                                 ]
                               : [],
                         ),
                         child: Center(
                           child: Icon(
-                            Icons.rotate_90_degrees_ccw,
-                            size: 30,
+                            Icons.rotate_left,
+                            size: 24,
                             color: Colors.white,
                           ),
                         ),
+                      ),
+                    ),
+                  ),
+
+                  // 오른쪽 회전 버튼
+                  Positioned(
+                    right: 5,
+                    top: (containerHeight - buttonSize) / 2,
+                    child: GestureDetector(
+                      onTapDown: (_) => _startRotation("right"),
+                      onTapUp: (_) => _stopRotation(),
+                      onTapCancel: _stopRotation,
+                      onPanEnd: (_) => _stopRotation(),
+                      child: Container(
+                        width: buttonSize,
+                        height: buttonSize,
+                        decoration: BoxDecoration(
+                          gradient: widget.enabled
+                              ? (_rotationPressed["right"] == true
+                                  ? LinearGradient(
+                                      colors: [
+                                        Colors.blue.shade600,
+                                        Colors.blue.shade800
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    )
+                                  : LinearGradient(
+                                      colors: [
+                                        Colors.blue.shade400,
+                                        Colors.blue.shade600
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ))
+                              : LinearGradient(
+                                  colors: [
+                                    Colors.grey.shade400,
+                                    Colors.grey.shade500
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                          shape: BoxShape.circle,
+                          boxShadow: widget.enabled
+                              ? [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: _rotationPressed["right"] == true ? 2 : 5,
+                                    spreadRadius: _rotationPressed["right"] == true ? 0 : 1,
+                                    offset: Offset(0, _rotationPressed["right"] == true ? 1 : 2),
+                                  ),
+                                ]
+                              : [],
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.rotate_right,
+                            size: 24,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // 중앙 정보 표시
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: widget.enabled
+                            ? Colors.blue.withOpacity(0.1)
+                            : Colors.grey.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: widget.enabled
+                              ? Colors.blue.withOpacity(0.3)
+                              : Colors.grey.withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.rotate_90_degrees_ccw,
+                            size: 18,
+                            color: widget.enabled
+                                ? Colors.blue.shade700
+                                : Colors.grey.shade600,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            '회전 제어',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: widget.enabled
+                                  ? Colors.blue.shade700
+                                  : Colors.grey.shade600,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -2059,20 +2438,36 @@ class _RotationJoystickState extends State<RotationJoystick> {
               ),
             ),
 
-            // 각도 표시기
+            // 상태 표시
             SizedBox(height: 8),
             Text(
-              '회전 각도: ${widget.rotationAngle.toStringAsFixed(1)}°',
+              _rotationPressed["left"] == true
+                  ? '← 좌회전 중'
+                  : (_rotationPressed["right"] == true ? '우회전 중 →' : '회전 대기'),
               style: TextStyle(
                 fontSize: 14,
                 color: widget.enabled
-                    ? Colors.blue.shade700
+                    ? (_rotationPressed["left"] == true || _rotationPressed["right"] == true
+                        ? Colors.blue.shade800
+                        : Colors.blue.shade700)
                     : Colors.grey.shade600,
+                fontWeight: _rotationPressed["left"] == true || _rotationPressed["right"] == true
+                    ? FontWeight.bold
+                    : FontWeight.normal,
               ),
             ),
           ],
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    // 위젯이 파괴될 때 안전하게 정지
+    if (_activeDirection != null && !_stopMessageSent) {
+      widget.onMove("center");
+    }
+    super.dispose();
   }
 }

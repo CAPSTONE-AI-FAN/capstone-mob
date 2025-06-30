@@ -41,6 +41,11 @@ class MQTTService {
     'CONTROL_DIRECTION': 'control/direction',
     'CONTROL_AUTO_MODE': 'control/auto_mode',
     'CONTROL_STATUS': 'control/status',
+    'CONTROL_MOVEMENT': 'control/movement',
+    'MOVEMENT_STATUS': 'movement/status',
+    'MOBILE_MOVEMENT_STATUS': 'mobile/movement/status',
+    'CONTROL_FAN_ROTATION': 'control/fan/rotation',
+    'FAN_ROTATION_STATUS': 'fan/rotation/status',
   };
 
   late MqttServerClient client;
@@ -109,11 +114,11 @@ class MQTTService {
     print(
         'MQTTService: 초기화 - 브로커: $broker, 포트: $port, WS포트: $wsPort, 클라이언트ID: $clientIdentifier');
 
-    // 🔴 클라이언트 ID를 간단한 형식으로 변경
-    final uniqueId = 'mob_${DateTime.now().millisecondsSinceEpoch % 10000}';
-
-    // MQTT 클라이언트 초기화 시 고유 ID 사용
-    _initializeClient(useWebSocket: false, clientId: uniqueId);
+    // 🔄 클라이언트 ID를 더 안정적으로 생성 (한 번 생성하면 유지)
+    // clientIdentifier가 이미 제공되었으면 그것을 사용, 아니면 안정적인 ID 생성
+    
+    // MQTT 클라이언트 초기화 시 제공된 클라이언트 ID 사용
+    _initializeClient(useWebSocket: false, clientId: clientIdentifier);
 
     // 모니터링 타이머 시작
     _startConnectionMonitor();
@@ -140,12 +145,12 @@ class MQTTService {
       client.port = port;
     }
 
-    // 공통 설정
+    // 공통 설정 - 연결 안정성 개선
     client.logging(on: true);
-    client.keepAlivePeriod = 20;
+    client.keepAlivePeriod = 60; // 20초 → 60초로 증가 (더 안정적인 연결)
     client.autoReconnect = true;
     client.resubscribeOnAutoReconnect = true;
-    client.connectTimeoutPeriod = 5000;
+    client.connectTimeoutPeriod = 10000; // 5초 → 10초로 증가
 
     // 콜백
     client.onDisconnected = _onDisconnected;
@@ -184,14 +189,14 @@ class MQTTService {
   // 연결 모니터링 타이머 시작
   void _startConnectionMonitor() {
     _connectionMonitorTimer?.cancel();
-    _connectionMonitorTimer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _connectionMonitorTimer = Timer.periodic(Duration(seconds: 5), (timer) { // 2초 → 5초로 증가
       final now = DateTime.now();
       final mqttConnected =
           client.connectionStatus?.state == MqttConnectionState.connected;
 
-      // 메시지 수신 기반 연결 상태 확인 (시간 간격 확장)
+      // 메시지 수신 기반 연결 상태 확인 (시간 간격 더 확장)
       final messageReceivedRecently =
-          now.difference(_lastMessageReceived).inSeconds < 20; // 20초로 확장
+          now.difference(_lastMessageReceived).inSeconds < 40; // 20초 → 40초로 확장
 
       // 새로운 효과적 연결 상태 계산
       final newEffectiveState = mqttConnected ||
@@ -229,15 +234,15 @@ class MQTTService {
   // 연결 안정성 확인 타이머
   void _startStabilityCheck() {
     _stabilityCheckTimer?.cancel();
-    _stabilityCheckTimer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _stabilityCheckTimer = Timer.periodic(Duration(seconds: 10), (timer) { // 5초 → 10초로 증가
       final now = DateTime.now();
 
       // 최근 메시지 수신 여부 확인
       if (lastMessageTimestamp != null) {
         final messageAge = now.millisecondsSinceEpoch - lastMessageTimestamp!;
 
-        if (messageAge < 12000) {
-          // 12초 이내 메시지 수신
+        if (messageAge < 25000) { // 12초 → 25초로 확장
+          // 25초 이내 메시지 수신
           _consecutiveSuccessMessages++;
           _consecutiveFailures = 0;
 
@@ -250,8 +255,8 @@ class MQTTService {
           _consecutiveSuccessMessages = 0;
           _consecutiveFailures++;
 
-          // 연속 3회 이상 메시지 수신 실패 시 안정적 연결 상태 해제
-          if (_consecutiveFailures >= 3 && _stableIndirectConnection) {
+          // 연속 5회 이상 메시지 수신 실패 시 안정적 연결 상태 해제 (3회 → 5회로 증가)
+          if (_consecutiveFailures >= 5 && _stableIndirectConnection) {
             _stableIndirectConnection = false;
             print('MQTTService: 안정적인 간접 연결 해제됨');
 
@@ -284,7 +289,7 @@ class MQTTService {
       if (lastMessageTimestamp != null) {
         final lastMsgTime =
             DateTime.fromMillisecondsSinceEpoch(lastMessageTimestamp!);
-        if (now.difference(lastMsgTime).inSeconds > 60 && // 1분 이상 메시지 없음
+        if (now.difference(lastMsgTime).inSeconds > 120 && // 1분 → 2분으로 확장
             _reconnectTimer == null &&
             !_explicitDisconnect) {
           print('MQTTService: 장시간 메시지 수신 없음 - 전체 연결 재설정');
@@ -752,12 +757,25 @@ class MQTTService {
     return delay > maxDelay ? maxDelay : delay;
   }
 
-  // 핑 타이머 시작 (연결 유지를 위한 주기적 메시지)
+  // 핑 타이머 시작 (연결 유지를 위한 주기적 메시지) - 더 자주 핑 전송
   void _startPingTimer() {
     _pingTimer?.cancel();
-    _pingTimer = Timer.periodic(Duration(seconds: 30), (timer) {
+    _pingTimer = Timer.periodic(Duration(seconds: 15), (timer) { // 30초 → 15초로 변경
       if (client.connectionStatus?.state == MqttConnectionState.connected ||
           _effectivelyConnected) {
+        
+        // 상태 메시지와 핑 메시지 모두 전송
+        publishMessage(
+          TOPICS['STATUS']!,
+          {
+            "device_id": clientIdentifier,
+            "status": "online",
+            "client_type": "mobile_app",
+            "connection_type": _useWebSocket ? "websocket" : "tcp",
+            "timestamp": DateTime.now().millisecondsSinceEpoch
+          },
+        );
+        
         publishMessage(
           'ping',
           {
