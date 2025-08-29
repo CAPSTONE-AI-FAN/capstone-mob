@@ -892,33 +892,12 @@ class _ControllerViewState extends State<ControllerView>
     _handleDirectionCommand(direction);
   }
 
-  // 방향 명령 처리 로직 분리 및 최적화
+  // 방향 명령 처리 로직 - 바퀴 이동만 제어
   void _handleDirectionCommand(String direction) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     
-    switch (direction) {
-      case "left":
-      case "right":
-        // 좌우 방향: 선풍기 회전 + 이동 모두 적용
-        _publishFanRotation(direction, 45, timestamp);
-        _publishMovementCommand(_mapDirectionToMovement(direction), timestamp);
-        break;
-        
-      case "up":
-      case "down":
-        // 상하 방향: 이동만 적용 (선풍기 회전은 정지)
-        _publishFanRotation("center", 0, timestamp);
-        _publishMovementCommand(_mapDirectionToMovement(direction), timestamp);
-        break;
-        
-      case "stop":
-      case "center":
-      default:
-        // 정지: 모두 정지
-        _publishFanRotation("center", 0, timestamp);
-        _publishMovementCommand("stop", timestamp);
-        break;
-    }
+    // 방향 제어는 오직 바퀴 이동만 담당 (선풍기 회전 제외)
+    _publishMovementCommand(_mapDirectionToMovement(direction), timestamp);
   }
 
    void _publishFanRotation(String direction, int speed, int timestamp) {
@@ -1641,7 +1620,7 @@ class FoldableMenuContent extends StatelessWidget {
                       dense: true,
                       leading: Icon(Icons.info, color: Colors.orange.shade700),
                       title: Text('제어 기능'),
-                      subtitle: Text('방향 버튼으로 선풍기 회전 + 이동 제어'),
+                      subtitle: Text('방향 버튼: 이동 제어 / 회전 조이스틱: 선풍기 회전'),
                     ),
 
                     // 하단 버튼들
@@ -1695,7 +1674,8 @@ class FoldableMenuContent extends StatelessWidget {
                                       SizedBox(height: 8),
                                       Text('© 2024 AI FAN 프로젝트'),
                                       SizedBox(height: 8),
-                                      Text('* 방향 버튼으로 회전 + 이동 제어'),
+                                      Text('* 방향 버튼: 이동 제어'),
+                                      Text('* 회전 조이스틱: 선풍기 회전 제어'),
                                     ],
                                   ),
                                   actions: [

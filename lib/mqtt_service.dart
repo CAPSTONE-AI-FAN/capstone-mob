@@ -46,6 +46,7 @@ class MQTTService {
     'MOBILE_MOVEMENT_STATUS': 'mobile/movement/status',
     'CONTROL_FAN_ROTATION': 'control/fan/rotation',
     'FAN_ROTATION_STATUS': 'fan/rotation/status',
+    'FAN_POWER_STATUS': 'device/fan/status',  // 선풍기 전원 상태 토픽 추가
   };
 
   late MqttServerClient client;
